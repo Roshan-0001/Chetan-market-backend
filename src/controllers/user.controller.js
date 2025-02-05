@@ -2,7 +2,7 @@ import { User } from "../models/user.model.js";
 import { AsyncHandler } from "../utills/Asynchandaler.js";
 import { ApiError } from "../utills/ApiError.js";
 import { ApiResponse } from "../utills/ApiResponse.js";
-import { UploadOnCloudinary } from "../utills/cloudinary.js";
+import { UploadOnCloudinary } from "../utills/Cloudinary.js";
 
 // generating acess token
 const generateAccessToken = async(userId) =>

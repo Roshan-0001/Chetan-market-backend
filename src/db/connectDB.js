@@ -1,6 +1,4 @@
 
-import { MongoClient , ServerApiVersion } from "mongodb";
-
 import mongoose from "mongoose";
 
 const connectDB= async() =>{
