@@ -1,9 +1,9 @@
-import { User } from "../models/user.model.js";
-import { AsyncHandler } from "../utills/Asynchandaler.js";
+
 import { ApiError } from "../utills/ApiError.js";
 import { ApiResponse } from "../utills/ApiResponse.js";
+import { AsyncHandler } from "../utills/Asynchandaler.js";
 import { UploadOnCloudinary } from "../utills/Cloudinary.js";
-
+import {User} from "../models/user.model.js";
 // generating acess token
 const generateAccessToken = async(userId) =>
     {
@@ -166,5 +166,4 @@ const logoutUser = AsyncHandler(async (req,res) => {
 })
 
 
-
-export { registerUser, loginUser, logoutUser };
+export {registerUser, loginUser, logoutUser}
