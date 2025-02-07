@@ -1,0 +1,43 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+out/
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Log files
+*.log
+
+# Environment files
+.env
+.env.* # Optional, if you have multiple environment files
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+*.vscode-test/
+
+# Miscellaneous
+*.gz
+*.zip
+*.tar
+*.tar.gz
+*.7z
