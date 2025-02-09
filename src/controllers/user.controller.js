@@ -30,8 +30,6 @@ const registerUser = AsyncHandler(
                     new ApiError(400, req.body, "All feilds are required")
                 );
             }
-
-
             // checking user is already existed or not..
             const existedUser = await User.findOne({
                 $or: [{ username }, { email }, { number }]
@@ -44,7 +42,7 @@ const registerUser = AsyncHandler(
             }
 
             // checking for image local path
-            const imageLocalPath = req.files?.avatar[0]?.path;
+            const imageLocalPath = req.files?.profileImage[0]?.path;
             if(!imageLocalPath){
                 throw new ApiError(400, this, "image is required");
             }

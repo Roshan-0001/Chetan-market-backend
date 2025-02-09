@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node src/index.js",
     "build": "babel src --out-dir build",
-    "start": "node build/index.js"
+    "start": "nodemon src/index.js"
   },
   "author": "roshan sharma",
   "license": "ISC",
