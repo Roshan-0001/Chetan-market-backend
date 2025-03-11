@@ -37,14 +37,16 @@ const registerUser = AsyncHandler(
 
             if (existedUser) {
                 return res.status(409).json(
-                    new ApiError(409, this, "user already existed")
+                    new ApiError(409,null,   "user already existed")
                 );
             }
 
             // checking for image local path
             const imageLocalPath = req.files?.profileImage[0]?.path;
             if(!imageLocalPath){
-                throw new ApiError(400, this, "image is required");
+                return res.status(409).json(
+                    new ApiError(400, null, "image is required")
+                );
             }
 
             // uloading image to the cloudinary
@@ -52,7 +54,9 @@ const registerUser = AsyncHandler(
 
 
             if (!profileImage) {
-                throw new ApiError(400, this, "failed to upload image");
+                return res.status(409).json(
+                    new ApiError(400, this, "failed to upload image")
+                );
             }
 
 
@@ -73,7 +77,7 @@ const registerUser = AsyncHandler(
 
             if (!userCreated) {
                 return res.status(406).json(
-                    new ApiError(406, this, "something went wrong while creating user")
+                    new ApiError(406, null, "something went wrong while creating user")
                 );
             } else {
                 return res.status(201).json(
@@ -82,7 +86,9 @@ const registerUser = AsyncHandler(
             }
 
         } catch (error) {
-            console.log("error is ----- ", error);
+            return res.status(406).json(
+                new ApiError(406, error, "something went wrong while creating user")
+            );
         }
     }
 )
