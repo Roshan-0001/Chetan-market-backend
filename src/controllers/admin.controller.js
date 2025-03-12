@@ -4,6 +4,16 @@ import { AsyncHandler } from "../utills/Asynchandaler.js";
 import { UploadOnCloudinary } from "../utills/Cloudinary.js";
 import {User} from "../models/user.model.js";
 import {Admin} from "../models/admin.model.js";
+//function to delete one admin at a time
+const deleteAdmin = async (_id) =>{
+    try {
+        const result = await Admin.deleteMany({_id});
+        return result;
+    } catch (error) {
+        console.log("error ------", error);
+        return null;
+    }
+}
 //function to delete one user at a time
 const deleteUser = async (users) =>{
     try {
@@ -19,6 +29,16 @@ const viewAllUser = async() =>{
     try {
         const users = await User.find({}, { password: 0 });
         return users;
+    } catch (error) {
+        console.log("error ------", error);
+        return null;
+    }
+}
+//functioon to view all available admin
+const viewAllAdmin = async() =>{
+    try {
+        const admins = await Admin.find({}, { password: 0 });
+        return admins;
     } catch (error) {
         console.log("error ------", error);
         return null;
@@ -53,6 +73,25 @@ function  removeEmptyFields (obj){
     });
     return obj;
 }
+// delete single admin
+const deleteSingleAdmin = AsyncHandler(
+    async (req, res) => {
+        try {
+            const {_id} = req.body;
+            if(!_id){
+                return res.status(400).json(new ApiError(400, null, "Failed to delete the admin"))
+            }
+            const response = await deleteAdmin(removeEmptyFields(_id));
+            if(!response.deletedCount){
+                return res.status(400).json(new ApiResponse(400, null, "Admin not found in Database"));
+            }else{
+                return res.status(201).json(new ApiResponse(201, null, "Deleted the Admin successfully"));
+            }
+        } catch (error) {
+            return res.status(500).json(new ApiError(500,error, "something went wrong while deleting admin"));
+        }
+    } 
+)
 // delete single user
 const deleteSingleUser = AsyncHandler(
     async (req, res) => {
@@ -72,6 +111,22 @@ const deleteSingleUser = AsyncHandler(
             return res.status(500).json(new ApiError(500,error, "something went wrong while deleting user"))
         }
     } 
+)
+// view all present admins
+const viewAllAdmins = AsyncHandler(
+    async (req, res) => {
+        try {
+            const response = await viewAllAdmin();
+
+            if(response){
+                return res.status(200).json(new ApiResponse(200, response, "All admins fetched successfully"));
+            }else{
+                return res.status(400).json(new ApiResponse(400, null, "No admin found in Database"));
+            }
+        } catch (error) {
+            return res.status(500).json(new ApiError(500,error, "something went wrong while fetching admins"))
+        }
+    }
 )
 // view all present users
 const viewAllUsers = AsyncHandler(
@@ -234,4 +289,4 @@ const viewSingleUser = AsyncHandler(
 
 
 
-export {deleteSingleUser, viewAllUsers, registerAdmin, loginAdmin, logoutAdmin, viewSingleUser};
+export {deleteSingleUser, deleteSingleAdmin, viewAllUsers, registerAdmin, loginAdmin, logoutAdmin, viewSingleUser, viewAllAdmins};
