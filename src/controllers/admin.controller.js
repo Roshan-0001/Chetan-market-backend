@@ -78,8 +78,7 @@ const viewAllUsers = AsyncHandler(
     async (req, res) => {
         try {
             const response = await viewAllUser();
-            console.log(response);
-            
+
             if(response){
                 return res.status(200).json(new ApiResponse(200, response, "All users fetched successfully"));
             }else{
@@ -130,7 +129,6 @@ const registerAdmin = AsyncHandler(
                 );
             }
         } catch (error) {
-            console.log(error);
             return res.status(400).json(
                 new ApiError(400, error, "something went wrong while creating user")
             );

@@ -45,7 +45,7 @@ const registerUser = AsyncHandler(
             const imageLocalPath = req.files?.profileImage[0]?.path;
             if(!imageLocalPath){
                 return res.status(409).json(
-                    new ApiError(400, null, "image is required")
+                    new ApiError(409, null, "image is required")
                 );
             }
 
@@ -55,7 +55,7 @@ const registerUser = AsyncHandler(
 
             if (!profileImage) {
                 return res.status(409).json(
-                    new ApiError(400, this, "failed to upload image")
+                    new ApiError(409, null, "failed to upload image")
                 );
             }
 
